@@ -1,0 +1,12 @@
+.opacity {
+    border-style: solid;
+    opacity: 0.5;
+}
+#main {
+    height: 21rem;
+    width: 21rem;
+}
+.sub-img  {
+    height: 10rem;
+    width: 10rem;
+}

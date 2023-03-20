@@ -7,7 +7,6 @@ export const getSubCategories = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const data = await subCategoryService.getSubCategories();
-      //   console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -27,7 +26,6 @@ export const postSubCategory = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await subCategoryService.postSubCategory(item);
-      //   console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -36,7 +34,6 @@ export const postSubCategory = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       toast.error("Message: " + message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue(message);
@@ -49,7 +46,6 @@ export const putSubCategory = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await subCategoryService.putSubCategory(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -58,7 +54,6 @@ export const putSubCategory = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -78,7 +73,6 @@ export const deleteSubCategory = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -92,7 +86,6 @@ const categorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getSubCategories.fulfilled, (state, action) => {
-        // state = action.payload;
         return [...action.payload];
       })
       .addCase(getSubCategories.rejected, (state, action) => {
@@ -101,9 +94,7 @@ const categorySlice = createSlice({
       .addCase(postSubCategory.fulfilled, (state, action) => {
         return [...state, action.payload];
       })
-      .addCase(postSubCategory.rejected, (state, action) => {
-        // state = null;
-      })
+      .addCase(postSubCategory.rejected, (state, action) => {})
       .addCase(putSubCategory.fulfilled, (state, action) => {
         const newState = state?.map((subCategory) => {
           return subCategory.id === action.payload.id

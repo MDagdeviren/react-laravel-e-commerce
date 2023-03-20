@@ -6,7 +6,6 @@ export const getStoreProducts = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeProductService.getStoreProducts(item);
-      //   console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -15,7 +14,6 @@ export const getStoreProducts = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -26,7 +24,6 @@ export const postStoreProduct = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeProductService.postStoreProduct(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -35,7 +32,6 @@ export const postStoreProduct = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -46,7 +42,6 @@ export const putStoreProduct = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeProductService.putStoreProduct(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -55,7 +50,6 @@ export const putStoreProduct = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -66,7 +60,6 @@ export const deleteStoreProduct = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeProductService.deleteStoreProduct(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -75,7 +68,6 @@ export const deleteStoreProduct = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -90,39 +82,29 @@ const categorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getStoreProducts.fulfilled, (state, action) => {
-        // state = action.payload;
         return [...action.payload];
       })
       .addCase(getStoreProducts.rejected, (state, action) => {
         state = null;
       })
       .addCase(postStoreProduct.fulfilled, (state, action) => {
-        // state = action.payload;
         return [...action.payload];
       })
-      .addCase(postStoreProduct.rejected, (state, action) => {
-        // state = null;
-      })
+      .addCase(postStoreProduct.rejected, (state, action) => {})
       .addCase(putStoreProduct.fulfilled, (state, action) => {
-        // state = action.payload;
         const newState = state?.map((product) => {
           return product.id === action.payload.id ? action.payload : product;
         });
         return [...newState];
       })
-      .addCase(putStoreProduct.rejected, (state, action) => {
-        // state = null;
-      })
+      .addCase(putStoreProduct.rejected, (state, action) => {})
       .addCase(deleteStoreProduct.fulfilled, (state, action) => {
-        // state = action.payload;
         const newState = state?.filter((product) => {
           return product.id !== action.payload.id;
         });
         return [...newState];
       })
-      .addCase(deleteStoreProduct.rejected, (state, action) => {
-        // state = null;
-      });
+      .addCase(deleteStoreProduct.rejected, (state, action) => {});
   },
 });
 export default categorySlice.reducer;

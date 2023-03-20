@@ -3,14 +3,12 @@ import storeService from "../services/storeService";
 export const getStore = createAsyncThunk("getStore", async (thunkAPI) => {
   try {
     const data = await storeService.getStoreInfo();
-    console.log(data);
     return data;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    console.log(message);
     thunkAPI.dispatch();
     return thunkAPI.rejectWithValue();
   }
@@ -19,14 +17,12 @@ export const getStore = createAsyncThunk("getStore", async (thunkAPI) => {
 export const putStore = createAsyncThunk("putStore", async (item, thunkAPI) => {
   try {
     const data = await storeService.putStore(item);
-    console.log(data);
     return data;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    console.log(message);
     thunkAPI.dispatch();
     return thunkAPI.rejectWithValue();
   }
@@ -34,14 +30,12 @@ export const putStore = createAsyncThunk("putStore", async (item, thunkAPI) => {
 export const putLogo = createAsyncThunk("putLogo", async (item, thunkAPI) => {
   try {
     const data = await storeService.putLogo(item);
-    console.log(data);
     return data;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    console.log(message);
     thunkAPI.dispatch();
     return thunkAPI.rejectWithValue();
   }
@@ -49,14 +43,12 @@ export const putLogo = createAsyncThunk("putLogo", async (item, thunkAPI) => {
 export const putCover = createAsyncThunk("putCover", async (item, thunkAPI) => {
   try {
     const data = await storeService.putCover(item);
-    console.log(data);
     return data;
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    console.log(message);
     thunkAPI.dispatch();
     return thunkAPI.rejectWithValue();
   }

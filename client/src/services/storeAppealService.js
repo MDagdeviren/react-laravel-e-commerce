@@ -1,6 +1,6 @@
 import axios from "axios";
 import authHeader from "./authHeader";
-const API_URL = "http://127.0.0.1:8000/api/";
+const API_URL = process.env.REACT_APP_API_URL;
 export const getStoreAppeal = async (item) => {
   return await axios
     .post(API_URL + "store/getAppeal", item, { headers: authHeader() })

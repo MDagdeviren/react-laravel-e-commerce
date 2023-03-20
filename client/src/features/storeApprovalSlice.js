@@ -6,7 +6,6 @@ export const getApprovalStores = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const data = await storeApprovalService.getApprovalStores();
-      //   console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -50,21 +49,16 @@ const storeApprovalSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getApprovalStores.fulfilled, (state, action) => {
-        // state = action.payload;
         return [...action.payload];
       })
-      .addCase(getApprovalStores.rejected, (state, action) => {
-        // state = null;
-      })
+      .addCase(getApprovalStores.rejected, (state, action) => {})
       .addCase(postApprovalStore.fulfilled, (state, action) => {
         const newState = state?.filter((store) => {
           return store.id !== action.payload.id;
         });
         return [...newState];
       })
-      .addCase(postApprovalStore.rejected, (state, action) => {
-        // state = null;
-      });
+      .addCase(postApprovalStore.rejected, (state, action) => {});
   },
 });
 export default storeApprovalSlice.reducer;

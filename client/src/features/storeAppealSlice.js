@@ -5,7 +5,6 @@ export const getStoreAppeal = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeAppealService.getStoreAppeal(item);
-      //   console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -14,7 +13,6 @@ export const getStoreAppeal = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -26,7 +24,6 @@ export const postStoreAppeal = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeAppealService.postStoreAppeal(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -35,7 +32,6 @@ export const postStoreAppeal = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -46,7 +42,6 @@ export const putStoreAppeal = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeAppealService.putStoreAppeal(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -55,7 +50,6 @@ export const putStoreAppeal = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -66,7 +60,6 @@ export const deleteStoreAppeal = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await storeAppealService.deleteStoreAppeal(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -75,7 +68,6 @@ export const deleteStoreAppeal = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      console.log(message);
       thunkAPI.dispatch();
       return thunkAPI.rejectWithValue();
     }
@@ -89,31 +81,23 @@ const storeAppealSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getStoreAppeal.fulfilled, (state, action) => {
-        // console.log(action);
         return { ...action.payload };
       })
       .addCase(getStoreAppeal.rejected, (state, action) => {
         state = null;
       })
       .addCase(postStoreAppeal.fulfilled, (state, action) => {
-        // state = action.payload;
         return { ...state, ...action.payload };
       })
-      .addCase(postStoreAppeal.rejected, (state, action) => {
-        // state = null;
-      })
+      .addCase(postStoreAppeal.rejected, (state, action) => {})
       .addCase(putStoreAppeal.fulfilled, (state, action) => {
         return { ...action.payload };
       })
-      .addCase(putStoreAppeal.rejected, (state, action) => {
-        // state = null;
-      })
+      .addCase(putStoreAppeal.rejected, (state, action) => {})
       .addCase(deleteStoreAppeal.fulfilled, (state, action) => {
         return {};
       })
-      .addCase(deleteStoreAppeal.rejected, (state, action) => {
-        // state = null;
-      });
+      .addCase(deleteStoreAppeal.rejected, (state, action) => {});
   },
 });
 export default storeAppealSlice.reducer;

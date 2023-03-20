@@ -27,15 +27,12 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk("auth/login", async (item, thunkAPI) => {
   try {
     const data = await authService.login(item);
-    // console.log(data.token);
     return { token: data.token };
   } catch (error) {
-    // console.log(error);
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    // console.log(message);
     thunkAPI.dispatch(setMessage(message));
     return thunkAPI.rejectWithValue();
   }
@@ -75,26 +72,3 @@ const authSlice = createSlice({
   },
 });
 export default authSlice.reducer;
-
-/**
- {
-    [register.fulfilled]: (state, action) => {
-      state.isLoggedIn = false;
-    },
-    [register.rejected]: (state, action) => {
-      state.isLoggedIn = false;
-    },
-    [login.fulfilled]: (state, action) => {
-      state.isLoggedIn = true;
-      state.token = action.payload.token;
-    },
-    [login.rejected]: (state, action) => {
-      state.isLoggedIn = false;
-      state.token = null;
-    },
-    [logout.fulfilled]: (state, action) => {
-      state.isLoggedIn = false;
-      state.token = null;
-    },
-  },
- */

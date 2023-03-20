@@ -9,6 +9,7 @@ import storeReducer from "./features/storeSlice";
 import storeApprovalReducer from "./features/storeApprovalSlice";
 import storeProductReducer from "./features/storeProductSlice";
 import storeInfoReducer from "./features/storeInfoSlice";
+
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -23,4 +24,5 @@ const store = configureStore({
     storeInfo: storeInfoReducer,
   },
 });
+
 export default store;

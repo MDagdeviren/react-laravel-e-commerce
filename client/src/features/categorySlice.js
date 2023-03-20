@@ -6,7 +6,7 @@ export const getCategories = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const data = await categoryService.getCategories();
-      //   console.log(data);
+
       return data;
     } catch (error) {
       const message =
@@ -26,7 +26,7 @@ export const postCategory = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await categoryService.postCategory(item);
-      console.log(data);
+
       return data;
     } catch (error) {
       const message =
@@ -46,7 +46,6 @@ export const putCategory = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await categoryService.putCategory(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -66,7 +65,6 @@ export const deleteCategory = createAsyncThunk(
   async (item, thunkAPI) => {
     try {
       const data = await categoryService.deleteCategory(item);
-      console.log(data);
       return data;
     } catch (error) {
       const message =
@@ -90,7 +88,6 @@ const categorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCategories.fulfilled, (state, action) => {
-        // state = action.payload;
         return [...action.payload];
       })
       .addCase(getCategories.rejected, (state, action) => {
@@ -100,9 +97,7 @@ const categorySlice = createSlice({
         // state = action.payload;
         return [...state, action.payload];
       })
-      .addCase(postCategory.rejected, (state, action) => {
-        // state = null;
-      })
+
       .addCase(putCategory.fulfilled, (state, action) => {
         // state = action.payload;
         const newState = state?.map((category) => {
@@ -110,18 +105,12 @@ const categorySlice = createSlice({
         });
         return [...newState];
       })
-      .addCase(putCategory.rejected, (state, action) => {
-        // state = null;
-      })
       .addCase(deleteCategory.fulfilled, (state, action) => {
         // state = action.payload;
         const newState = state?.filter((category) => {
           return category.id !== action.payload.id;
         });
         return [...newState];
-      })
-      .addCase(deleteCategory.rejected, (state, action) => {
-        // state = null;
       });
   },
 });

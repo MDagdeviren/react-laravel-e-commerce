@@ -1,29 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { logout } from "../../features/authSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { NavLink } from "reactstrap";
 
-const Example = (args) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen(!dropdownOpen);
+const token = JSON.parse(localStorage.getItem("token"));
+
+const Navi = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
 
   //Search
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  function handleLogout() {
+  const handleLogout = () => {
     dispatch(logout())
       .unwrap()
       .then(() => {
         navigate("/login");
       })
       .catch(() => {});
-  }
+  };
 
   return (
     <>
@@ -41,7 +41,7 @@ const Example = (args) => {
 
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             <img
               alt="logo"
               src="https://seeklogo.com/images/F/fenerbahce-spor-kulubu-5-sari-yildizli-arma-logo-05A7043388-seeklogo.com.png"
@@ -50,10 +50,11 @@ const Example = (args) => {
                 width: 50,
               }}
             />
-          </a>
-          <a className="navbar-brand" href="/">
-            N20
-          </a>
+          </Link>
+          <Link className="navbar-brand" to="/">
+            FB
+          </Link>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -69,9 +70,7 @@ const Example = (args) => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {token?.user.user_level === 0 ? (
                 <li class="nav-item">
-                  <NavLink active href="/admin">
-                    Admin Dashboard
-                  </NavLink>
+                  <Link to="/admin">Admin Dashboard</Link>
                 </li>
               ) : null}
               {token ? (
@@ -92,13 +91,13 @@ const Example = (args) => {
                   >
                     {token.user.store_id ? (
                       <li>
-                        <NavLink
+                        <Link
                           className="btn"
                           style={{ color: "black" }}
-                          href="/store"
+                          to="/store"
                         >
                           Store Management
-                        </NavLink>
+                        </Link>
                       </li>
                     ) : null}
                     <li>
@@ -108,7 +107,7 @@ const Example = (args) => {
                       <NavLink
                         style={{ color: "black" }}
                         onClick={handleLogout}
-                        className="btn"
+                        className="btn btn-warning"
                       >
                         Logout
                       </NavLink>
@@ -118,14 +117,14 @@ const Example = (args) => {
               ) : (
                 <>
                   <ul>
-                    <NavLink className="btn" href="/login">
+                    <Link className="btn btn-warning" to="/login">
                       Login
-                    </NavLink>
+                    </Link>
                   </ul>
                   <ul>
-                    <NavLink className="btn" href="/register">
+                    <Link className="btn btn-warning" to="/register">
                       Register
-                    </NavLink>
+                    </Link>
                   </ul>
                 </>
               )}
@@ -148,4 +147,4 @@ const Example = (args) => {
   );
 };
 
-export default Example;
+export default Navi;

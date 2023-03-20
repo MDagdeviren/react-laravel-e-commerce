@@ -9,17 +9,13 @@ import { CardGroup, Container, Row, Col } from "reactstrap";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-const Home = () => {
+const Home =() => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category);
   const subCategories = useSelector((state) => state.subCategory);
   const products = useSelector((state) => state.product);
-  const [searchParams] = useSearchParams();
-  const [stores, setStores] = useState([]);
-  const [subchecked, setsubchecked] = useState(
-    localStorage.getItem("checksub") == ["null"] ? [] : item
-  );
   const [sub, setsub] = useState("");
+  const [stores, setStores] = useState([]);
 
   useEffect(() => {
     if (Object.keys(categories).length === 0) {
@@ -57,24 +53,26 @@ const Home = () => {
       setStores(response.data);
     });
   }, []);
-
   //Use Ref
-  const arrLength = subCategories.length;
+  
   const elRefs = document.getElementsByClassName("sub-check");
 
   // localset item with params value
-
+  const [searchParams] = useSearchParams();
   const suburl = searchParams.get("sub_category_id");
   localStorage.setItem("checksub", suburl);
 
   //Checked sub category id array and string
   const item = Object.values(localStorage.getItem("checksub"));
-
   for (var i = 0; i < item.length; i++) {
     if (item[i] === ",") {
       item.splice(i, 1);
     }
   }
+
+  const [subchecked, setsubchecked] = useState(
+    localStorage.getItem("checksub") == ["null"] ? [] : item
+  );
 
   const checkChange = (e) => {
     const main_id = e.target.getAttribute("main_id");
@@ -137,13 +135,14 @@ const Home = () => {
       }
     }
     setstoreStr(storeChecked.join(","));
-  };
 
+  };
   //SEARCH KEY
   const [searchText, setSearchText] = useState("");
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchText(e.target[0].value);
+
   };
 
   return (
@@ -179,8 +178,10 @@ const Home = () => {
                 <div className="ms-1" key={i}>
                   <div className="form-check" key={i}>
                     <input
+                      // ref={elRefs.current[j]}
                       className="form-check-input category-check"
                       type="checkbox"
+                      // value={category.id}
                       id={category.id}
                       onChange={(e) => checkChange(e)}
                     />
@@ -199,6 +200,7 @@ const Home = () => {
                             id={"subcategoryCheck" + j}
                             main_id={category.id}
                             onChange={(e) => checkChange(e)}
+                            
                           />
                           <label
                             className="form-check-label"
@@ -247,6 +249,7 @@ const Home = () => {
       </Container>
     </>
   );
-};
+}
 
 export default Home;
+
